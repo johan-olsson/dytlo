@@ -1,9 +1,6 @@
 dytlo
 =====
 
-*A tiny template langue that does any thing you want.
-*
-
 dytlo has the size of 1.5kb minified, does not have any dependencies and does not poke at the prototype of your DOM.
 
 Usage
@@ -13,10 +10,8 @@ The idea of dytlo is to allow the developer to create the template functionality
 
 ###Rules
 
-*Creating a rule / setting up some functionality:
-*
-```
-#!javascript
+_Creating a rule / setting up some functionality:_
+```javascript
 // dytlo.rule( <rule prefix>, <behavior function> )
 dytlo.rule('?', function(object) {
   // object will have the parameters: node, name, index, render and depth
@@ -26,52 +21,42 @@ dytlo.rule('?', function(object) {
 Now we have our first rule. So how do we use it? The rules that you create in this way will apply for both template- "blocks" and "variables" 
 ```{?foo} bar {/?foo}``` and ```{?foo}```
 
-*Assume we have the json:
-*
-```
-#!javascript
+_Assume we have the json:_
+```javascript
 {
   "name": "Andy",
   "title": "Web Developer"
 }
 ```
-*And the template:
-*
-```
+_And the template:_
+```html
 <h3>{ name }{ ?title } - <span>{ /?title }{ ?title }{ ?title }</span>{ /?title }<h3>
 ```
-*The output would be:
-*
-```
+_The output would be:_
+```html
 <h3>Andy - <span>Web Developer</span></h3>
 ```
-Now you might think *"that's a lot of titles"*.
-*So let's create a more specific rule for this:
-*
-```
-#!javascript
+Now you might think_"that's a lot of titles"_.
+_So let's create a more specific rule for this:_
+```javascript
 // I'm using "^^" as a prefix this time
 dytlo.rule('^^', function(object) {
   return (typeof object.value !== 'undefined')? ' - <span>' + object.render + '</span>' : '' ;
 });
 ```
-*And the new template:
-*
-```
+_And the new template:_
+```html
 <h3>{ name }{ ^^title }</h3>
 ```
-*The output again would be:
-*
-```
+_The output again would be:_
+```html
 <h3>Andy - <span>Web Developer</span></h3>
 ```
 
 ###Loops
 
-*Some json:
-*
-```
-#!javascript
+_Some json:_
+```javascript
 {
   "users": [
     {
@@ -93,10 +78,8 @@ dytlo.rule('^^', function(object) {
   }
 }
 ```
-*This is how to do this in the template:
-*
-```
-#!html
+_This is how to do this in the template:_
+```html
 <ul>
   { @users } <!-- @ is the pre set loop prefix -->
   <li>
@@ -113,9 +96,8 @@ dytlo.rule('^^', function(object) {
   { /@users }
 </ul>
 ```
-*The result of this will be (except the comments will not be removed):
-*
-```
+_The result of this will be (except the comments will not be removed):_
+```html
 <ul>
   <li>
     <h3>Andy - Web Developer</h3>
